@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html id="markdown-html" lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hlog - Markdown Editor</title>
+    <link rel="icon" type="image/png" th:href="@{/assets/favicon.png}">
+    <link rel="stylesheet" th:href="@{/markdown-lib/material-icons.css}">
+    <link rel="stylesheet" th:href="@{/markdown-lib/base16-light.css}">
+    <link rel="stylesheet" th:href="@{/markdown-codemirror/lib/codemirror.css}">
+    <link rel="stylesheet" th:href="@{/markdown-lib/default.css}">
+    <link rel="stylesheet" th:href="@{/markdown-lib/github-markdown.css}">
+    <link rel="stylesheet" th:href="@{/markdown-lib/spell-checker.min.css}">
+    <link rel="stylesheet" th:href="@{/markdown-lib/sweetalert.css}">
+    <link rel="stylesheet" th:href="@{/css/markdown.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css}"
+          integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <script th:src="@{https://code.jquery.com/jquery-3.2.1.slim.min.js}"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js}"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js}"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+</head>
+<body id="toplevel">
+<div id="navbar">
+    <div id="navcontent">
+        <a id="logo" th:href="@{/}">
+            <p id="title" class="left">Hlog</p>
+        </a>
+        <p id="newbutton" class="navbutton right" data-toggle="modal" data-target="#exampleModal">작성하기</p>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">제목</span>
+            </div>
+            <input id="post-title" type="text" class="mr-3" style="width: 600px" placeholder="제목을 입력하세요"
+                   aria-label="title" aria-describedby="basic-addon1"/>
+
+            <input id="input-tag" type="text" style="width: 500px" placeholder="태그를 입력하세요" aria-label="tag"
+                   aria-describedby="basic-addon2">
+            <div class="input-group-append mr-5">
+                <button class="btn btn-outline-info" type="button" onclick="readTag()">태그 추가</button>
+            </div>
+
+            <div class="input-group-append" id="output-tag">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="in" class="mt-5">
+    <form><textarea id="code"></textarea></form>
+</div>
+<div id="out" class="markdown-body mt-5"></div>
+<div id="menu">
+    <span>Save As</span>
+    <div id="saveas-markdown">
+        <svg height="64" width="64" xmlns="http://www.w3.org/2000/svg">
+            <g transform="scale(0.0625)">
+                <path d="M950.154 192H73.846C33.127 192 0 225.12699999999995 0 265.846v492.308C0 798.875 33.127 832 73.846 832h876.308c40.721 0 73.846-33.125 73.846-73.846V265.846C1024 225.12699999999995 990.875 192 950.154 192zM576 703.875L448 704V512l-96 123.077L256 512v192H128V320h128l96 128 96-128 128-0.125V703.875zM767.091 735.875L608 512h96V320h128v192h96L767.091 735.875z"/>
+            </g>
+        </svg>
+        <span>Markdown</span>
+    </div>
+    <div id="saveas-html">
+        <svg height="64" width="64" xmlns="http://www.w3.org/2000/svg">
+            <g transform="scale(0.0625) translate(64,0)">
+                <path d="M608 192l-96 96 224 224L512 736l96 96 288-320L608 192zM288 192L0 512l288 320 96-96L160 512l224-224L288 192z"/>
+            </g>
+        </svg>
+        <span>HTML</span>
+    </div>
+    <a id="close-menu">&times;</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">이대로 게시할까요?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                포스트를 작성하시겠어요?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                <button id="write-btn" type="button" class="btn btn-primary" >게시하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/markdown-lib/markdown-it.js}"></script>
+<script th:src="@{/markdown-lib/markdown-it-footnote.js}"></script>
+<script th:src="@{/markdown-lib/highlight.pack.js}"></script>
+<script th:src="@{/markdown-lib/emojify.js}"></script>
+<script th:src="@{/markdown-codemirror/lib/codemirror.js}"></script>
+<script th:src="@{/markdown-codemirror/overlay.js}"></script>
+<script th:src="@{/markdown-codemirror/xml/xml.js}"></script>
+<script th:src="@{/markdown-codemirror/markdown/markdown.js}"></script>
+<script th:src="@{/markdown-codemirror/gfm/gfm.js}"></script>
+<script th:src="@{/markdown-codemirror/javascript/javascript.js}"></script>
+<script th:src="@{/markdown-codemirror/css/css.js}"></script>
+<script th:src="@{/markdown-codemirror/htmlmixed/htmlmixed.js}"></script>
+<script th:src="@{/markdown-codemirror/lib/util/continuelist.js}"></script>
+<script th:src="@{/markdown-lib/spell-checker.min.js}"></script>
+<script th:src="@{/markdown-lib/rawinflate.js}"></script>
+<script th:src="@{/markdown-lib/rawdeflate.js}"></script>
+<script th:src="@{/markdown-lib/sweetalert.min.js}"></script>
+<script th:src="@{/js/markdown.js}"></script>
+</body>
+</html>

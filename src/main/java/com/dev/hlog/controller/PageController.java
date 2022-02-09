@@ -1,0 +1,58 @@
+package com.dev.hlog.controller;
+
+
+
+import com.dev.hlog.auth.PrincipalDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class PageController {
+
+    @GetMapping("/")
+    public String home(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+        addAttr(principalDetails, model);
+        return "index";
+    }
+
+    @GetMapping("/about")
+    public String about(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+        addAttr(principalDetails, model);
+        return "about";
+    }
+
+    @GetMapping("markdown")
+    public String markdown() {
+        return "markdown";
+    }
+
+    @GetMapping("/admin/login")
+    public String admin(@RequestParam(value = "error", required = false) String error,
+                        @RequestParam(value = "exception", required = false) String exception,
+                        Model model)
+    {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
+
+        return "admin-login";
+    }
+
+    @GetMapping("/post/detail")
+    public String postDetail() {
+        return "post";
+    }
+
+
+
+
+
+    public void addAttr(PrincipalDetails principalDetails, Model model) {
+        if (principalDetails != null)
+            model.addAttribute("login", principalDetails.getUsername());
+        else
+            model.addAttribute("login", null);
+    }
+}
