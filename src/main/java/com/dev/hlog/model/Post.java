@@ -1,20 +1,9 @@
 package com.dev.hlog.model;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
-
 import java.util.Set;
-
 
 @Entity
 @Getter

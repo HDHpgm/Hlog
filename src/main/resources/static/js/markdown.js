@@ -388,13 +388,11 @@ function writePost() {
     var contentHtml = $('#out').html();
     console.log(contentHtml);
 
-    // 태그 html 그대로 저장
-    var tagArr = [];
-    console.log($('#output-tag').html());
     // 모든 태그 가져오기
+    var tagArr = [];
     for (var i = 0; i <= tagCount; i++) {
-        var tag = $('#' + tagPrefix + i).attr('class');
-        console.log(tag);
+        var tag = $('#' + tagPrefix + i).text();
+
         if (tag === '') {
             continue;
         }

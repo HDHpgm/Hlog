@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -69,5 +70,11 @@ public class PostService {
                 .collect(Collectors.toList());
         System.out.println(postsResponse);
         return postsResponse;
+    }
+
+    // 각 포스트를 보여주기 위한 서비스
+    public PostResponseDto findPostById(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new UserException("", ErrorCode.POST_IS_NULL));
+        return new PostResponseDto(post);
     }
 }
