@@ -77,4 +77,15 @@ public class PostService {
         Post post = postRepository.findById(id).orElseThrow(() -> new UserException("", ErrorCode.POST_IS_NULL));
         return new PostResponseDto(post);
     }
+
+    // 포스트 삭제 서비스
+    public String postDeleteById(Long id) {
+        try {
+            postRepository.deleteById(id);
+        }
+        catch (IllegalArgumentException e) {
+            throw new UserException("", ErrorCode.POST_DELETE_FAIL);
+        }
+        return "삭제완료";
+    }
 }

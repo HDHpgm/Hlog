@@ -19,7 +19,7 @@ function addPostHtml(posts) {
         var tempHtml = `
                     <!-- Post preview-->
                     <div class="post-preview">
-                        <a href="/post/detail?id=${posts[i].id}">
+                        <a href="/post/detail/${posts[i].id}">
                             <h2 class="post-title">${posts[i].title}</h2>
                             <h3 class="post-subtitle"># ${posts[i].tags}</span></h3>
                         </a>

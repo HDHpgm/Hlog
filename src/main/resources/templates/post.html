@@ -14,19 +14,43 @@
 <body>
 
 <!-- Page Header-->
-<header id="page-header" layout:fragment="custom-header" class="masthead" style="background-image: url('/assets/img/post-bg.jpg')">
+<header id="page-header" layout:fragment="custom-header" class="masthead" style="background-image: url('/assets/img/post-detail-bg.jpg')">
 
-</header>
-<!-- Post Content-->
-<article layout:fragment="custom-content" class="mb-4">
-    <div class="container px-4 px-lg-5">
+    <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div id="page-content" class="col-md-10 col-lg-8 col-xl-7 markdown-body">
-
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1 id="title" th:text="${post.title}"></h1>
+                    <h2 id="tags" class="subheading" th:text="${'# ' + post.tags}"> </h2>
+                    <span class="meta">
+                        Posted by
+                        <strong th:text="${post.user.username}"></strong>
+                        <strong th:text="${post.createDate}"></strong>
+                    </span>
+                </div>
+                <div th:if="${login != null}" class="mt-2 text-start">
+                    <button type="button" class="btn btn-outline-info">E D I T</button>
+                    <button type="button" class="btn btn-outline-dark" onclick="deletePost()">D E L E T E</button>
+                </div>
             </div>
         </div>
+
     </div>
-</article>
+</header>
+
+
+<!-- Post Content-->
+<div layout:fragment="custom-content">
+    <article  class="mb-4 mt-5">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div id="page-content" class="col-md-10 col-lg-8 col-xl-7 markdown-body" th:utext="${post.contentHtml}">
+
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
 
 </body>
 </html>

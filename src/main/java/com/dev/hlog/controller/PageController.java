@@ -48,8 +48,11 @@ public class PageController {
         return "admin-login";
     }
 
-    @GetMapping("/post/detail")
-    public String postDetail() {
+    @GetMapping("/post/detail/{id}")
+    public String postDetail(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model, @PathVariable Long id) {
+        PostResponseDto postResponseDto = postService.findPostById(id);
+        model.addAttribute("post", postResponseDto);
+        addAttr(principalDetails, model);
         return "post";
     }
 

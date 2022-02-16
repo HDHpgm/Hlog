@@ -27,10 +27,14 @@ public class PostApiController {
         return postService.findAllPost();
     }
 
-    @GetMapping("/post/find")
-    public PostResponseDto findPostById(@RequestParam Long id) {
-        return postService.findPostById(id);
+    @DeleteMapping("/post/delete/{id}")
+    public String postDeleteById(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        if (principalDetails.getUsername().equals("admin")) {
+           return postService.postDeleteById(id);
+        }
+        return "삭제실패";
     }
+
 
 
 }
