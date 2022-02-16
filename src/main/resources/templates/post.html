@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragment/layout}">
-    <head>
-        <title>Hlog - 포스트 상세보기 </title>
-        <th:block layout:fragment="js">
-            <script th:src="@{/js/post.js}"></script>
-        </th:block>
-    </head>
-    <body>
+<head>
+    <title>Hlog - 포스트 상세보기 </title>
+    <th:block layout:fragment="js">
+        <script th:src="@{/js/post.js}"></script>
+    </th:block>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/markdown-lib/github-markdown.css}">
+        <link rel="stylesheet" th:href="@{/markdown-lib/github-gist.css}">
+    </th:block>
+</head>
+<body>
 
-        <!-- Page Header-->
-        <header id="page-header" layout:fragment="custom-header" class="masthead" style="background-image: url('/assets/img/post-bg.jpg')">
+<!-- Page Header-->
+<header id="page-header" layout:fragment="custom-header" class="masthead" style="background-image: url('/assets/img/post-bg.jpg')">
 
-        </header>
-        <!-- Post Content-->
-        <article layout:fragment="custom-content" class="mb-4">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div id="page-content" class="col-md-10 col-lg-8 col-xl-7">
+</header>
+<!-- Post Content-->
+<article layout:fragment="custom-content" class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div id="page-content" class="col-md-10 col-lg-8 col-xl-7 markdown-body">
 
-                    </div>
-                </div>
             </div>
-        </article>
+        </div>
+    </div>
+</article>
 
-    </body>
+</body>
 </html>

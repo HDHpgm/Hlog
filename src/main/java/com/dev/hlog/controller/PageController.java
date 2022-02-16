@@ -4,6 +4,7 @@ package com.dev.hlog.controller;
 
 import com.dev.hlog.auth.PrincipalDetails;
 import com.dev.hlog.dto.PostResponseDto;
+import com.dev.hlog.model.Post;
 import com.dev.hlog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

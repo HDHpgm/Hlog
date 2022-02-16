@@ -17,6 +17,8 @@ public class Post extends BaseTime{
     private User user;
 
     private String title;
+
+    @Lob
     private String contentHtml;
 
     @ElementCollection
