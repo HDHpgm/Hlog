@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import java.util.Optional;
@@ -68,7 +69,6 @@ public class PostService {
         List<PostResponseDto> postsResponse = posts.stream()
                 .map(PostResponseDto::new)
                 .collect(Collectors.toList());
-        System.out.println(postsResponse);
         return postsResponse;
     }
 
@@ -86,6 +86,16 @@ public class PostService {
         catch (IllegalArgumentException e) {
             throw new UserException("", ErrorCode.POST_DELETE_FAIL);
         }
-        return "삭제완료";
+        return "삭제 완료";
+    }
+
+    @Transactional
+    public String postUpdateById(Long id, PostWriteRequestDto postUpdateDto) {
+        // 존재하지 않는 포스트이면 exception 발생
+        Post post = postRepository.findById(id).orElseThrow(() -> new UserException("", ErrorCode.POST_UPDATE_FAIL));
+        // if문 필요 없음
+
+        post.update(postUpdateDto);
+        return "수정 완료";
     }
 }

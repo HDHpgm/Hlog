@@ -142,7 +142,7 @@
     d.gutterFiller = elt("div", null, "CodeMirror-gutter-filler");
     d.gutterFiller.setAttribute("cm-not-content", "true");
     // Will contain the actual code, positioned to cover the viewport.
-    d.lineDiv = elt("div", null, "CodeMirror-code");
+    d.lineDiv = elt("div", null, "CodeMirror-code",null, "real-code");
     // Elements are added to these to represent selection and cursors.
     d.selectionDiv = elt("div", null, null, "position: relative; z-index: 1");
     d.cursorDiv = elt("div", null, "CodeMirror-cursors");
@@ -8172,10 +8172,11 @@
 
   // DOM UTILITIES
 
-  function elt(tag, content, className, style) {
+  function elt(tag, content, className, style, id) {
     var e = document.createElement(tag);
     if (className) e.className = className;
     if (style) e.style.cssText = style;
+    if (id) e.id = id;
     if (typeof content == "string") e.appendChild(document.createTextNode(content));
     else if (content) for (var i = 0; i < content.length; ++i) e.appendChild(content[i]);
     return e;

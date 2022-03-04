@@ -1,10 +1,14 @@
 package com.dev.hlog.model;
+import com.dev.hlog.dto.PostWriteRequestDto;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@NoArgsConstructor
 @Entity
 @Getter
 public class Post extends BaseTime{
@@ -32,7 +36,10 @@ public class Post extends BaseTime{
         this.tags = tags;
     }
 
-    public Post() {
-
+    public void update(PostWriteRequestDto postUpdateDto) {
+        this.title = postUpdateDto.getTitle();
+        this.contentHtml = postUpdateDto.getContentHtml();
+        this.tags = postUpdateDto.getTags();
     }
+
 }

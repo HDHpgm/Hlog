@@ -5,6 +5,11 @@
     <title>Hlog - 포스트 상세보기 </title>
     <th:block layout:fragment="js">
         <script th:src="@{/js/post.js}"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var post = [[${post}]]
+            /*]]>*/
+        </script>
     </th:block>
     <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/markdown-lib/github-markdown.css}">
@@ -29,7 +34,7 @@
                     </span>
                 </div>
                 <div th:if="${login != null}" class="mt-2 text-start">
-                    <button type="button" class="btn btn-outline-info">E D I T</button>
+                    <button type="button" class="btn btn-outline-info" onclick="location.href = '/markdown-edit/'+ post.id">E D I T</button>
                     <button type="button" class="btn btn-outline-dark" onclick="deletePost()">D E L E T E</button>
                 </div>
             </div>

@@ -32,7 +32,17 @@ public class PostApiController {
         if (principalDetails.getUsername().equals("admin")) {
            return postService.postDeleteById(id);
         }
-        return "삭제실패";
+        return "삭제 오류";
+    }
+
+    @PutMapping("/post/update/{id}")
+    public String postUpdateById(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails principalDetails,
+                             @RequestBody PostWriteRequestDto postUpdateDto)
+    {
+        if (principalDetails.getUsername().equals("admin")) {
+            return postService.postUpdateById(id, postUpdateDto);
+        }
+        return "수정 오류";
     }
 
 

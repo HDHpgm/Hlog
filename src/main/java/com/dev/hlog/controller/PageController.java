@@ -32,9 +32,16 @@ public class PageController {
         return "about";
     }
 
-    @GetMapping("markdown")
+    @GetMapping("/markdown")
     public String markdown() {
         return "markdown";
+    }
+
+    @GetMapping("/markdown-edit/{postId}")
+    public String markdownEdit(@PathVariable Long postId, Model model) {
+        PostResponseDto postResponseDto = postService.findPostById(postId);
+        model.addAttribute("post", postResponseDto);
+        return "markdown-edit";
     }
 
     @GetMapping("/admin/login")

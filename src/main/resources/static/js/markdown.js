@@ -329,99 +329,15 @@ function processQueryParams() {
 }
 
 
-window.addEventListener("beforeunload", function (e) {
-    if (!editor.getValue() || editor.getValue() == localStorage.getItem('content')) {
-        return;
-    }
-    var confirmationMessage = 'It looks like you have been editing something. '
-        + 'If you leave before saving, your changes will be lost.';
-    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-    return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-});
-
-function readTag() {
-    var tagStr = $('#input-tag').val();
-    $('#input-tag').val("");
-    // 중복 tag 체크
-    // 공백 체크
-    var blank_pattern = /^\s+|\s+$/g;
-    if (tagStr === null || tagStr.replace(blank_pattern, '') === "") {
-        alert("태그를 입력해주세요");
-    } else addTag(tagStr);
-}
-
-var tagCount = -1;
-var tagPrefix = "tag-";
-
-function addTag(tagStr) {
-    // 색깔 랜덤으로
-    const color = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"];
-    const randomColor = Math.floor(Math.random() * color.length);
-    // id 만들어주기, 삭제위해서
-    var id = tagPrefix + (++tagCount);
-    var tempHtml = `<span id="${id}" style="cursor: pointer;" onclick="deleteTag('${id}')" class="badge badge-${color[randomColor]} mr-2 align-self-center">${tagStr}</span>`;
-
-    // html 붙이기
-    $('#output-tag').append(tempHtml);
-
-}
-
-// 클릭한 tag 삭제
-function deleteTag(id) {
-    $('#' + id).remove();
-}
-
-$(document).ready(function () {
-    window.onbeforeunload = function () {
-        return true;
-    }
-
-    $('#write-btn').on("click", function () {
-        window.onbeforeunload = null;
-        writePost();
-
-    });
-})
-
-function writePost() {
-    $(window).off("beforeunload");
-    var contentHtml = $('#out').html();
-    console.log(contentHtml);
-
-    // 모든 태그 가져오기
-    var tagArr = [];
-    for (var i = 0; i <= tagCount; i++) {
-        var tag = $('#' + tagPrefix + i).text();
-
-        if (tag === '') {
-            continue;
-        }
-        tagArr[i] = tag;
-    }
-    console.log(tagArr);
+// window.addEventListener("beforeunload", function (e) {
+//     if (!editor.getValue() || editor.getValue() == localStorage.getItem('content')) {
+//         return;
+//     }
+//     var confirmationMessage = 'It looks like you have been editing something. '
+//         + 'If you leave before saving, your changes will be lost.';
+//     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+//     return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+// });
 
 
-    $.ajax({
-        type: 'POST',
-        url: '/post/write',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            "title": $('#post-title').val(),
-            "contentHtml": contentHtml,
-            "tags": tagArr
-        }),
-        success: function (response) {
-            console.log(response);
-            var success = response.success;
-            if (success === "false") {
-                alert(response.errorMessage);
-            } else {
-                alert(response);
-                $('#markdown-html').remove();
-                location.href = '/';
-            }
-
-        }
-    });
-}
 
