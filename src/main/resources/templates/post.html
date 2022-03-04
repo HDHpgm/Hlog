@@ -4,7 +4,7 @@
 <head>
     <title>Hlog - 포스트 상세보기 </title>
     <th:block layout:fragment="js">
-        <script th:src="@{/js/post.js}"></script>
+        <script th:src="@{js/post.js}"></script>
         <script th:inline="javascript">
             /*<![CDATA[*/
             var post = [[${post}]]
@@ -12,14 +12,14 @@
         </script>
     </th:block>
     <th:block layout:fragment="css">
-        <link rel="stylesheet" th:href="@{/markdown-lib/github-markdown.css}">
-        <link rel="stylesheet" th:href="@{/markdown-lib/github-gist.css}">
+        <link rel="stylesheet" th:href="@{markdown-lib/github-markdown.css}">
+        <link rel="stylesheet" th:href="@{markdown-lib/github-gist.css}">
     </th:block>
 </head>
 <body>
 
 <!-- Page Header-->
-<header id="page-header" layout:fragment="custom-header" class="masthead" style="background-image: url('/assets/img/post-detail-bg.jpg')">
+<header id="page-header" layout:fragment="custom-header" class="masthead" style="background-image: url('assets/img/post-detail-bg.jpg')">
 
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
